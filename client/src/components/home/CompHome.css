@@ -1,0 +1,28 @@
+.ComponentHead {
+  width: 79%;
+  height: 30vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.ComponentHead img {
+  -webkit-filter: drop-shadow(0 6px 12px black);
+          filter: drop-shadow(0 6px 12px black);
+}
+
+.compBody-Home {
+  width: 79%;
+  height: 70vh;
+}
+/*# sourceMappingURL=CompHome.css.map */
