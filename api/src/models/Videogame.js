@@ -12,9 +12,10 @@ module.exports = (sequelize) => {
       name: {
         type: DataTypes.STRING(60),
         allowNull: false,
-        validate: {
-          is: /^[a-zA-Z ]{2,60}/m,
-          max: 60
+        unique: true,
+        validate: {     
+          is: /^[a-zA-Z0-9\s]*$/m,
+          // is: /^[a-zA-Z\s]*$/m,
         }
       },
       description: {
@@ -22,19 +23,29 @@ module.exports = (sequelize) => {
         allowNull: false
       },
       release_date:{
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: true,
         validate: {
-          is : /^\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$/m
+          isDate: true,
         }
       },
       rating:{
         type: DataTypes.DOUBLE,
-        allowNull: false
+        allowNull: true,
+        validate: {
+          is: {
+            args: /^([0-9])(\.[0-9]{1})?$/,
+            msg: "Rating must be number or decimal",
+          },
+          isNumeric: true,
+        },
       },
       platforms:{
         type: DataTypes.ARRAY(DataTypes.TEXT),
         allowNull: false
       }
-  });
+    },
+    {
+        timestamps: false
+    });
 };

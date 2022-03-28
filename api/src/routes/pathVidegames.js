@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const VideoGames = require('./controllers/VideoGames');
+const VideoGame = require('./controllers/CtrlVideoGame');
 
 
-router.get('/', VideoGames.listAllVideoGames);
+router.get('/', VideoGame.videoGamesXGenres);
 
 module.exports = router;

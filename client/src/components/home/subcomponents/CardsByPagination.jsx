@@ -20,6 +20,13 @@ const CardsByPagination = (props) => {
               <MyFigure key={pI.i}>
                 {`${pI.i+1}.${pI.name}`}
                 <img src={pI.image} alt="" />
+                {
+                  pI.genres.map((e) => {
+                    return (
+                      <span key={e.id}>{e.name}</span>
+                    )
+                  })
+                }
               </MyFigure>
             )
           })

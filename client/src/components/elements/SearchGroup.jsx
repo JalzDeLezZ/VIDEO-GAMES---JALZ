@@ -39,22 +39,22 @@ export default SearchGroup
 
 
 const MyFigure = styled.figure`
-    width: 79%;
-    border-radius: 100px;
-    border: 1px solid #dfe1e5;
+    width: 100%; 
+    border: #dfe1e500;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: rgb(0 0 0 / 80%);
     &:hover {
-      box-shadow: 0 1px 6px 0 #ffffff47;
-      border-color: #dfe1e500;
+      box-shadow: 0 1px 6px 0 #ffffff;
+      border: 2px solid #dfe1e5;
     }
     .search-icon {
       background-image: url("https://i.ibb.co/1XPF0Vs/earth-globe-with-continents-maps.png");
       background-repeat: no-repeat;
       background-position: center;
       background-size: contain;
-    
+      
       margin-left: 15px;
       filter: invert(100%);
       width: 18px;
@@ -69,8 +69,9 @@ const MyFigure = styled.figure`
       padding: 0 16px;
       background: transparent;
       color: white;
+      font-weight: bold;
       &::placeholder{
-        color: rgba(255, 255, 255, 0.568); font-weight: bold; }
+        color: rgba(255, 255, 255, 0.719); font-weight: bold; }
       
     }
     .second-icon {
@@ -86,5 +87,6 @@ const MyFigure = styled.figure`
       height: 18px;
       filter: invert(100%);
       cursor: pointer;
+
     }
 `
