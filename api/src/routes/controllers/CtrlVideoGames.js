@@ -22,7 +22,7 @@ exports.listAllVideoGames = async (req, res) => {
                     }
                 })
             }
-        }); 
+        });
         
         let aContainer = []
         for (let vPage = 1; vPage < 6; vPage++) {
@@ -51,7 +51,6 @@ exports.listAllVideoGames = async (req, res) => {
             }
         });
         res.status(200).json([...dataFormatOfDB, ...formatApi]);
-
     }catch (error) {
         console.log(error);
         res.status(500).send(error);

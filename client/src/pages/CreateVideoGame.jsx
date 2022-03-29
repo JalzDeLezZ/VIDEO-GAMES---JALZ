@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { MyForm } from '../components/form/Elements'
-import { InputGroup } from '../components/form/InputGroup'
+import { DetailGroup, InputGroup, InnSearch } from '../components/form/InputGroup'
 import './styles/CreateVideoGame.scss'
 
 import { regular_expretion } from '../assets/helpers/validation'
@@ -10,9 +10,12 @@ const CreateVideoGame = () => {
   const [oStates, setOstates] = useState(
     {
       n_name : { current_data: '', is_valid: null },
-      n_other : { current_data: '', is_valid: null },
+      n_date : { current_data: '', is_valid: null },
+      n_rating : { current_data: '', is_valid: null },
     }
   )
+  
+  const [crntAVideoGames, setAVideoGames] = useState([]);
 
   return (
     <div className='page-createVideoGame'> 
@@ -29,6 +32,38 @@ const CreateVideoGame = () => {
             pRegexp={regular_expretion.name}
         />
 
+        <DetailGroup
+          pLabel= "Other" 
+          pPlaceHolder= "Enter other details"
+          pName= 'iDetail'
+        />
+
+        <InputGroup
+            pOState = {oStates}
+            pOSetState = {setOstates}
+            pType="date"
+            pLabel= "Date"
+            pPlaceholder = "Enter the name of the game"
+            pName="n_date"
+            pErrorLegend="Only letters (aA-zZ) and numbers (0-9) are accepted"
+            pRegexp={regular_expretion.date}
+        />
+        <InputGroup
+            pOState = {oStates}
+            pOSetState = {setOstates}
+            pType="number"
+            pLabel= "Rating"
+            pPlaceholder = "Enter the name of the game"
+            pName="n_rating"
+            pErrorLegend="Only letters (aA-zZ) and numbers (0-9) are accepted"
+            pRegexp={regular_expretion.rating}
+        />
+        <InnSearch
+            pPlaceHolder = "Search Genre of the game"
+            pLabel = "Genres"
+            pAState={crntAVideoGames}
+            pASetState={setAVideoGames}
+        />
       </MyForm>
     </div>
   )

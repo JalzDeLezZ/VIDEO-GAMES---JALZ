@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const CtrlGenres = require('./controllers/CtrlGenres');
+const CtrlGenres = require('../controllers/CtrlGenres');
 
 router.get('/', CtrlGenres.allListGenres);
 

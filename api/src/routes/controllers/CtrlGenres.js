@@ -7,7 +7,7 @@ exports.allListGenres = async (req, res) => {
         let allDBGenres = await Genres.findAll();
         
         if (allDBGenres.length > 0) {
-            console.log(allDBGenres);
+            // console.log(allDBGenres);
             res.send(allDBGenres);   
         } else {
             const {data} = await axios.get(`https://api.rawg.io/api/genres?key=${KEY_API}`)
@@ -22,7 +22,7 @@ exports.allListGenres = async (req, res) => {
                 await Genres.create(pII)
             });
 
-            console.log(allFormatData);
+            // console.log(allFormatData);
             res.send(allFormatData);
         }
     }

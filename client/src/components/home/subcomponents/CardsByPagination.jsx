@@ -7,6 +7,9 @@ const CardsByPagination = (props) => {
     for (let i = 1; i < Math.ceil(pTotalCards / pCardsPerPage); i++) {
       aNumberPage.push(i)
     }
+
+    console.log(pAPartOfTotalCards)
+
   return (
     <>
       {
@@ -23,7 +26,7 @@ const CardsByPagination = (props) => {
                 {
                   pI.genres.map((e) => {
                     return (
-                      <span key={e.id}>{e.name}</span>
+                      <MySpan key={e.id}>{e.name}</MySpan>
                     )
                   })
                 }
@@ -47,6 +50,10 @@ const CardsByPagination = (props) => {
 }
 
 export default CardsByPagination
+
+const MySpan = styled.span`
+  margin-right: 3px;
+`
 
 const DivButons = styled.div`
   display: flex;

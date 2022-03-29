@@ -1,0 +1,12 @@
+select * from "VideoGames"
+select * from "Genres"
+select * from "VideoGames_x_Genres"
+SELECT MAX(id) FROM "VideoGames"
+
+insert into "VideoGames" (id, name, description, release_date, rating,platforms) 
+values (9000001, 'nameOnez','lorem ipsus', '1999-12-12', 5, ARRAY['PlayStation','Xbox','Nintendo','PC']
+)
+
+insert into "VideoGames" (id, name, description, release_date, rating,platforms) 
+values (9000009, 'nameOne','lorem ipsus', CURRENT_DATE, 5, ARRAY['PlayStation','Xbox','Nintendo','PC']
+) 

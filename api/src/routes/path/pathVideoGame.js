@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const VideoGame = require('./controllers/CtrlVideoGame');
+const VideoGame = require('../controllers/CtrlVideoGame');
 
 router.post('/', VideoGame.videoGamesXGenres);
 

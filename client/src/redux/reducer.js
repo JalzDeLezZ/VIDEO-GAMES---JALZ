@@ -1,10 +1,12 @@
 import {  
-    GET_ALL_VIDEOGAMES 
+    GET_ALL_VIDEOGAMES,
+    GET_LIST_GENRES
 } from "./action";
 
 const initialState = {
     allVideoGames: [],
     customVideoGames: [],
+    aListGenres: []
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -18,6 +20,11 @@ const rootReducer = (state = initialState, action) => {
                 allVideoGames: payload,
                 customVideoGames: payload
             };
+        case GET_LIST_GENRES:
+            return {
+                ...state,
+                aListGenres: payload
+            }
         default: return {...state}
     };
 };

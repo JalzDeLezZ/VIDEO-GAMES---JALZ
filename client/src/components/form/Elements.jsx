@@ -11,6 +11,8 @@ const MyForm = styled.form`
     height: 80vh; 
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     gap: 20px;
     padding: 30px 30px;  
     background-color: rgb(0 0 0 / 30%); 
@@ -31,15 +33,17 @@ const MyLabel = styled.label`
     `}
 `   
 const MyInputGroup = styled.div`
+    width: 270px;
+    margin-right: 0 auto;
     position: relative;
     span{
         position: absolute;
-        right: 9px;
-        top: calc(100% - 67%);
+        left: -21px;
+        top: -22px;
     }
 `
-const MyInput = styled.input`
-    width: 91%;
+const MyInput = styled.input` 
+    width: 63vw;
     background: #ffffff;
     border-radius: 3px;
     height: 45px;
@@ -74,10 +78,38 @@ const ErrorLegend = styled.p`
         display: block;
     `}
 `
+
+const MyTextArea = styled.textarea`
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+    min-width: 63vw;
+    max-width: 63vw;
+    max-height: 90px;
+    &&::-webkit-scrollbar-track
+    {
+    /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); */
+    border-radius: 10px;
+    }
+    &&::-webkit-scrollbar
+    { 
+    background-color: #64a1a167;
+    width: 9px;
+    }
+    &&::-webkit-scrollbar-thumb
+    {
+    border-radius: 10px;
+    /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3); */
+    background-color: #00000049;
+    }
+`
+
 export {
     MyForm,
     MyLabel,
     MyInputGroup,
     MyInput,
-    ErrorLegend
+    ErrorLegend,
+    MyTextArea
 }
