@@ -8,7 +8,7 @@ const oColors = {
 
 const MyForm = styled.form`
     width: 80%;
-    height: 80vh; 
+    height: auto; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,7 +22,6 @@ const MyForm = styled.form`
 
 const MyLabel = styled.label`
     display: block;
-    font-weight: 700;
     margin: 3px 2px;
     color: white;
     font-weight: bold;
@@ -33,7 +32,6 @@ const MyLabel = styled.label`
     `}
 `   
 const MyInputGroup = styled.div`
-    width: 270px;
     margin-right: 0 auto;
     position: relative;
     span{
@@ -104,12 +102,70 @@ const MyTextArea = styled.textarea`
     background-color: #00000049;
     }
 `
+const MySelect = styled.select`
+    width: 63vw;
+`
 
+const MyButton = styled.button`
+    height: 45px;
+    line-height: 45px;
+    width: 30%;
+    background: #000;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: .1s ease all;
+
+    &:hover{
+        box-shadow: 3px 0px 30px rgba(163,163,163,0.1);
+    }
+`
+
+const ContainerSubmit = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* @media(max-width:350px){
+        grid-column: span 1;
+    } */
+` 
+const ReturnedContainer = styled.section`
+    width: 70vw;
+    display: flex;
+    flex-wrap: wrap;
+    article{
+        font-weight: bold;
+        color: white;
+        p{
+            margin: 3px;
+            font-style: oblique;
+        }
+        button{
+            background: transparent;
+            border: none;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 50%;
+            border: 1px solid white;
+            transition: .1s ease all;
+            &:hover{
+                box-shadow: 3px 0px 30px rgba(163,163,163,0.1);
+            }
+        }
+    }
+`
 export {
     MyForm,
     MyLabel,
     MyInputGroup,
     MyInput,
     ErrorLegend,
-    MyTextArea
+    MyTextArea,
+    MySelect ,
+    MyButton,
+    ContainerSubmit,
+    ReturnedContainer
 }

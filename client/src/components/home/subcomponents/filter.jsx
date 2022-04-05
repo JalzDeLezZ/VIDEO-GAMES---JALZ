@@ -1,45 +1,85 @@
-import React, { useState } from 'react'
+import React, {  useEffect, useRef } from 'react'
 import SelectGroup from '../../elements/SelectGroup';
 import styled from "styled-components";
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import RButtonGroup from '../../elements/RButtonGroup';
+import { OrderFilterAscDsc, OrderFilter, filterByGenre, getListGenres, getAllVideoGames} from '../../../redux/action';
+
 const Filter = () => {
-  const dispatch = useDispatch();
 
-  const [sRadioBtn , setSRadioBtn] = useState(null)
-
-  const mOnClickRbtOrder = (e) =>{
+  //DISPATCH & SELECTOR
+  const xDispatch_action = useDispatch();
+  useEffect(() => {
+    xDispatch_action(getListGenres('ALL'))
+  },[xDispatch_action]);
+  const reducer_genres = useSelector( state => state.aListGenres)
+  
+  //ARRAY GENRES
+  let aGenres = reducer_genres.map(pI => pI.name);
+  aGenres.unshift('All');//aGenres = ['All', ...aGenres]
+  const x = useRef();
+  //FILTRO SELECT X' VALUE => DISPATCH
+  const mOnChangeSelect = (e) => {
     const {value} = e.target; console.log(value);
-    setSRadioBtn(value); //console.log("RBT",sRadioBtn) 
-    // dispatch(filtGeneral(sSelect, value))
+    if (value === 'All' || value === 'NONE') {
+      console.log(x)
+      x.current.reset();
+    }
+    xDispatch_action(filterByGenre(value))
   }
 
+  //FILTER RADIO BUTTONS X' VALUE => DISPATCH
+  // const [sRadioBtn , setSRadioBtn] = useState(null)
+  const mOnClickRbtOrder = (e) =>{
+    const {value} = e.target;  console.log(value);
+    // setSRadioBtn(value);
+    xDispatch_action(OrderFilter(value))
+  }
+  //
+  const mOnChangeSelectData = (e) => {
+    const {value} = e.target;  console.log(value);
+    xDispatch_action(getAllVideoGames(value));
+  }
+  const mOrderAscDsc = (e)=> {
+    const {value} = e.target;  console.log(value);
+    xDispatch_action(OrderFilterAscDsc("DAD", "SOON"))
+  }
   return (
     <MyDiv>
       <h3>FILTERS</h3>
-      <div style={{display: ""}}> 
+ 
+      <form ref={x} style={{display: ""}}> 
         <SelectGroup
           pLabel = "GENRE"
-          pAoptions= {["All", "Action", "Adventure", "RPG", "Simulation", "Strategy"]}
+          pName = "n_genre"
+          pAoptions= {aGenres}
+          pMReloadReducer = {mOnChangeSelect}
         />
+        
         <SelectGroup
           pLabel = "DATA"
-          pAoptions= {["All", "API", "DATA BASE"]}
+          pName = "n_data"
+          pAoptions= {["ALL", "API", "DATA BASE"]}
+          pMReloadReducer = {mOnChangeSelectData}
         />
+
         <SelectGroup
           pLabel = "ORDEN"
-          pAoptions= {["ALPHABETIC", "RATING"]}
+          pName = "n_order"
+          pAoptions= {["NONE","ALPHABETIC", "RATING"]}
+          pMReloadReducer = {mOnChangeSelect}
         />
+
         <MySection>
           <RButtonGroup 
-            pName="order" 
+            pName="order"
             pId="iAsc" 
             pLabel="Ord. Asc" 
             pValue="ASC" 
             pMOnClickRbt={mOnClickRbtOrder}
           />
           
-          <RButtonGroup 
+          <RButtonGroup
             pName="order"  
             pId="iDsc"
             pLabel="Ord. Dsc" 
@@ -47,7 +87,7 @@ const Filter = () => {
             pMOnClickRbt={mOnClickRbtOrder}
           />
         </MySection>
-      </div>
+      </form> 
     </MyDiv>
   )
 }

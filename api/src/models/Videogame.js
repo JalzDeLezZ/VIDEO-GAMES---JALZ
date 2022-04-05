@@ -18,6 +18,10 @@ module.exports = (sequelize) => {
           // is: /^[a-zA-Z\s]*$/m,
         }
       },
+      image: {
+        type: DataTypes.STRING(255),
+        allowNull: true,
+      },
       description: {
         type: DataTypes.TEXT,
         allowNull: false

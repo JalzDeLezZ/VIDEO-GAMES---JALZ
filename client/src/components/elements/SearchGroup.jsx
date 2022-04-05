@@ -5,17 +5,13 @@ import styled from "styled-components";
 
 const SearchGroup = () => {
 
-  const [crntSearch, setSearch] = useState('');
-
-  const dispatch = useDispatch();
+  const xDispatch = useDispatch();
   
-  const mOnChangeInput = (e) => {
-    setSearch(e.target.value);console.log(e.target.value)
-  }
-
+  const [crntSearch, setSearch] = useState('');
   
   const mOnClickButton = async (e) => {
-    dispatch(getVideoGameByName(crntSearch));
+    xDispatch(getVideoGameByName(crntSearch));
+    console.log(crntSearch);
   }
 
   return (
@@ -24,7 +20,7 @@ const SearchGroup = () => {
         <input 
           type="text" 
           placeholder="Search Video Game By Name" 
-          onChange={mOnChangeInput}
+          onChange={(e) => {setSearch(e.target.value)}}
           className="header-input"
           value={crntSearch}
         />

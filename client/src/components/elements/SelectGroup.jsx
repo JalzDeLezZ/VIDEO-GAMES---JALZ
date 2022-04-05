@@ -1,12 +1,20 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from "styled-components";
 
 const SelectGroup = (props) => {
-    const {pLabel, pAoptions} = props;
+  
+  const {pLabel, pAoptions, pMReloadReducer} = props;
+
+  
   return (
     <MyDiv className='GroupSelect'>
         <h4>{pLabel}</h4>
-        <select name="" id="">
+        <select
+          id=""
+          name=""
+          onChange={ pMReloadReducer }
+          // onBlur={() => {console.log(crntSelect)}}
+        >
             {
                 pAoptions.map((item, index) => {
                     return <option 

@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from "styled-components";
+import Card from './Card' 
 const CardsByPagination = (props) => {
     const {pAPartOfTotalCards, pBLoading, pCardsPerPage, pTotalCards, pMPaginate} = props;
     const aNumberPage = [];
@@ -7,9 +8,7 @@ const CardsByPagination = (props) => {
     for (let i = 1; i < Math.ceil(pTotalCards / pCardsPerPage); i++) {
       aNumberPage.push(i)
     }
-
-    console.log(pAPartOfTotalCards)
-
+    
   return (
     <>
       {
@@ -18,29 +17,26 @@ const CardsByPagination = (props) => {
       {console.log(pBLoading)}
       <MyDiv>
         {
-          pAPartOfTotalCards && pAPartOfTotalCards.map((pI) => {
+          (pAPartOfTotalCards.length > 0) ? pAPartOfTotalCards.map((pI,i) => {
             return (
-              <MyFigure key={pI.i}>
-                {`${pI.i+1}.${pI.name}`}
-                <img src={pI.image} alt="" />
-                {
-                  pI.genres.map((e) => {
-                    return (
-                      <MySpan key={e.id}>{e.name}</MySpan>
-                    )
-                  })
-                }
-              </MyFigure>
+              <Card
+                key={i}
+                pImage={pI.image}
+                pName={pI.name}
+                pId={pI.id}
+                pAGenres = {pI.genres}
+              />
             )
           })
+          : (!pBLoading) && <h1>No Hay Data</h1> 
         }
       </MyDiv>
       <DivButons style={{marginTop: "4px"}}>
           {
             aNumberPage.map(pI => (
               
-            <div key={pI} type="button" onClick={() => pMPaginate(pI)}>
-              {pI}</div>                        
+            <button key={pI} type="button" onClick={() => pMPaginate(pI)}>
+              {pI}</button>                        
               
             ))
           }  
@@ -51,27 +47,30 @@ const CardsByPagination = (props) => {
 
 export default CardsByPagination
 
-const MySpan = styled.span`
-  margin-right: 3px;
-`
+
 
 const DivButons = styled.div`
   display: flex;
   justify-content: space-around;
-`
-
-const MyFigure = styled.figure`
-width: auto; 
-  img{
-    width: 200px;
-    height: 160px;
+  button{
+    background-color: transparent;
+    color: white;
+    font-weight: bold;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid white;
   }
 `
+
 const MyDiv = styled.div`
   text-align: center;
   place-items: center; 
-  display: flex;
-  overflow-x: auto;  
+  display: grid; 
+  grid-auto-flow: column;//dense
+  grid-template-rows: repeat(2, 1fr);
+  grid-gap: 10px;
+  place-items: center;
+  overflow-x: auto;
 
   &&::-webkit-scrollbar-track
   {
@@ -90,3 +89,4 @@ const MyDiv = styled.div`
     background-color: #00d9ff71;
   }
 `
+ 

@@ -12,7 +12,7 @@ router.get('/', (req, res) =>{
     res.send("INICIOOO")
 });
 
-//ROUTER VIDEOGAME
+//ROUTER VIDEOGAMES
 router.use('/videogames',VideoGames);
 
 //ROUTER GENRES

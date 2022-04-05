@@ -4,4 +4,5 @@ https://www.w3schools.com/TAGS/tryit.asp?filename=tryhtml5_details
 ►►► TAG - TEXT AREA
 https://www.tutorialspoint.com/html/html_textarea_tag.htm#:~:text=The%20HTML%20%3Ctextarea%3E%20tag%20is%20used%20within%20a,the%20user%20to%20input%20text%20over%20multiple%20rows.?msclkid=40b84566aebd11ecbb285b573b0e477b
 
-►►►
+►►► RADIO BUTTONS 
+https://www.htmlquick.com/es/reference/tags/input-radio.html?msclkid=708713d3b06b11ec8053f663812c2b30

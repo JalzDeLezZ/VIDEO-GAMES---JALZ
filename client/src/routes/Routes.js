@@ -6,11 +6,12 @@ import {Routes, Route } from 'react-router-dom';
 import LandingPage from '../pages/LandingPage';
 import Home from '../pages/Home';
 import CreateVideoGame from '../pages/CreateVideoGame';
+import DetailVideoGame from '../pages/DetailVideoGame';
 
 function App() {
   return (
     <Routes>
-      <Route exact path='/detailvg:identity' element={<LandingPage/>}/>
+      <Route exact path='/detailvg/:identifier' element={<DetailVideoGame/>}/>
       <Route exact path='/createvg' element={<CreateVideoGame/>}/>
       <Route exact path='/home' element={<Home/>}/>
       <Route exact path='/' element={<LandingPage/>}/>

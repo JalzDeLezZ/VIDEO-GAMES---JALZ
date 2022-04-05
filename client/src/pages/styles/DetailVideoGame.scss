@@ -1,5 +1,5 @@
-.pHome{
-    width: auto;
+.page-detail_video_game{
+    width: 100%;
     min-height: 100vh;
     background-image: url("../../assets/img/Home.jpg");
     background-size: cover;/* contain */
@@ -8,4 +8,5 @@
     display: flex; 
     align-items: center;
     flex-direction: column;
+ 
 }
