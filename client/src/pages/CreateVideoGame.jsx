@@ -80,6 +80,7 @@ const CreateVideoGame = () => {
             pErrorLegend="Only letters (aA-zZ) and numbers (0-9) are accepted"
             pRegexp={regular_expretion.date}
         />
+        
         <InputGroup
             pOState = {oStates}
             pOSetState = {setOstates}

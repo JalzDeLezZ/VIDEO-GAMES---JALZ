@@ -1,10 +1,13 @@
 import {  
     GET_ALL_VIDEOGAMES,
-    GET_LIST_GENRES,
-    FILTER_BY_GENRE,
-    ORDER_FILTER,
     GET_VIDEOGAMES_BY_NAME,
-    GET_VIDEOGAMES_BY_ID
+    GET_VIDEOGAMES_BY_ID,
+    GET_LIST_GENRES,
+
+    ORDER_FILTER_ASC_DSC,
+
+    FILTER_BY_GENRE,
+    ORDER_FILTER
 } from "./action";
 
 const initialState = {
@@ -18,7 +21,7 @@ let aTemp = [];
 
 const rootReducer = (state = initialState, action) => {
     const {allVideoGames, customVideoGames} = state;
-    const {type, payload, filter_genre, value_order} = action;
+    const {type, payload, filter_genre, value_order, pDad, pSoon} = action;
 
     switch(type) {
         case GET_ALL_VIDEOGAMES:
@@ -42,6 +45,14 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 aListGenres: payload
             }
+        
+        case ORDER_FILTER_ASC_DSC:
+            console.log(pDad, pSoon);
+            return {
+                ...state,
+            }
+        //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         case FILTER_BY_GENRE: 
             const aVideoGameFilter = filter_genre === 'All' ? allVideoGames
             : allVideoGames.filter(pI => {
