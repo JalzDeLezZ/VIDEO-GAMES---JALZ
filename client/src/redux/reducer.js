@@ -46,10 +46,56 @@ const rootReducer = (state = initialState, action) => {
                 aListGenres: payload
             }
         
-        case ORDER_FILTER_ASC_DSC:
-            console.log(pDad, pSoon);
-            return {
-                ...state,
+        case ORDER_FILTER_ASC_DSC: console.log(pDad, pSoon);
+
+            if(pDad === 'ALPHABETIC'){
+                if(pSoon === 'ASC'){
+                    aTemp = customVideoGames.sort((a, b) => {
+                        if(a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+                        if(a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+                        return 0;
+                    });
+                }
+                else if(pSoon === 'DSC'){
+                    console.log("ESTAMOS EN: ",'DSC');
+                    aTemp = customVideoGames.sort((a, b) => {
+                        if(a.name.toLowerCase() > b.name.toLowerCase()) return -1;
+                        if(a.name.toLowerCase() < b.name.toLowerCase()) return 1;
+                        return 0;
+                    });
+                }
+                else{
+                    aTemp = customVideoGames;
+                }
+                return { 
+                    ...state,
+                    customVideoGames: [...aTemp]
+                }
+            }
+            else if (pDad === 'RATING'){
+                if(pSoon === 'ASC'){
+                    aTemp = customVideoGames.sort((a, b) => {
+                        return a.rating-b.rating;
+                    });
+                }
+                else if(pSoon === 'DSC'){
+                    aTemp = customVideoGames.sort((a, b) => {
+                        return b.rating-a.rating;
+                    });
+                }
+                else{
+                    aTemp = customVideoGames;
+                }
+                return {
+                    ...state,
+                    customVideoGames: [...aTemp]
+                }
+            }
+            else{
+                return {
+                    ...state,
+                    customVideoGames: allVideoGames
+                }
             }
         //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
