@@ -3,7 +3,7 @@ import SelectGroup from '../../elements/SelectGroup';
 import styled from "styled-components";
 import { useDispatch, useSelector } from 'react-redux'
 import RButtonGroup from '../../elements/RButtonGroup';
-import { OrderFilterAscDsc, OrderFilter, filterByGenre, getListGenres, getAllVideoGames} from '../../../redux/action';
+import { OrderFilterAscDsc, FilterByDataAndGenre, OrderFilter, filterByGenre, getListGenres, getAllVideoGames} from '../../../redux/action';
 
 const Filter = () => {
   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  
@@ -17,23 +17,22 @@ const Filter = () => {
   const reducer_genres = useSelector( state => state.aListGenres)
   //*******ARRAY GENRES//********
   let aGenres = reducer_genres.map(pI => pI.name);
-  aGenres.unshift('All');//aGenres = ['All', ...aGenres]
+  aGenres.unshift('ALL');//aGenres = ['All', ...aGenres]
 
   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   const [typeData, setTypeData] = useState('ALL');
   const [filterGenre, setFilterGenre] = useState('ALL');
   const mOnChangeGenreSlc = (e) => {
-    const {value} = e.target;  
-    setFilterGenre(value); 
-    console.log("DATA:",typeData, "GENRE:",value);
-    // xDispatch_action(filterByGenre(value))
+    const {value} = e.target;
+    setFilterGenre(value);
+    xDispatch_action(FilterByDataAndGenre(typeData, value))
   }
 
   const mOnChangeSelectData = (e) => {
-    const {value} = e.target;   
-    setTypeData(value); 
-    console.log("DATA:",value, "GENRE:",filterGenre);
+    const {value} = e.target;
+    setTypeData(value);
     // xDispatch_action(getAllVideoGames(value));
+    xDispatch_action(FilterByDataAndGenre(value, filterGenre));
   }
 
   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -41,14 +40,13 @@ const Filter = () => {
   const [filterAscDsc, setFilterAscDsc] = useState('NONE');
 
   const mTypeOrder = (e)=> {
-    const {value} = e.target;  
+    const {value} = e.target;
     setTipeOrder(value);
     xDispatch_action(OrderFilterAscDsc(value, filterAscDsc))
-    if(value === 'NONE'){ rForm.current.reset() }
   }
 
   const mOrderAscDsc = (e)=> {
-    const {value} = e.target;  
+    const {value} = e.target;
     setFilterAscDsc(value);
     xDispatch_action(OrderFilterAscDsc(typeOrder, value))
   }
@@ -80,7 +78,7 @@ const Filter = () => {
         />
 
         <MySection>
-          <RButtonGroup 
+          <RButtonGroup
             pName="order"
             pId="iAsc" 
             pLabel="Ord. Asc" 

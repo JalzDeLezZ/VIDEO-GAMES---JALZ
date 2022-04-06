@@ -22,12 +22,11 @@ const CreateVideoGame = () => {
   const [crntPlatforms, setPlatforms] = useState([]);
   const [crntGenres, setGenres] = useState([]);
   
-  
+  const [crntFormValidation , setFormValidation] = useState(null);
 
   const mOnSubmit = (event) => {
     event.preventDefault();
-    let oPost = {};
-    oPost = {
+    let oPost = {
       "name": oStates.n_name.current_data,
       "image": "https://i.ibb.co/X2bcwRM/mario.jpg",
       "description": oStates.n_desc,
@@ -91,6 +90,7 @@ const CreateVideoGame = () => {
             pErrorLegend="Only letters (aA-zZ) and numbers (0-9) are accepted"
             pRegexp={regular_expretion.rating}
         />
+
         <InnSearch
             pPlaceHolder = "Search Genre of the game"
             pLabel = "Genres"
@@ -107,15 +107,15 @@ const CreateVideoGame = () => {
         />
 
         <ContainerSubmit>
-              <MyButton 
-                  type="submit"
-              >Enviar</MyButton>
-              {
-              /* formState && <MensajeExito>
-                              Formulario Enviado Exitosamente!
-                          </MensajeExito> */
-              }
-          </ContainerSubmit>
+            <MyButton 
+                type="submit"
+            >Enviar</MyButton>
+            {
+            /* formState && <MensajeExito>
+                            Formulario Enviado Exitosamente!
+                        </MensajeExito> */
+            }
+        </ContainerSubmit>
 
       </MyForm>
     </div>

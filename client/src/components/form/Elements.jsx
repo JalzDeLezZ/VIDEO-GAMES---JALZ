@@ -108,8 +108,7 @@ const MySelect = styled.select`
 
 const MyButton = styled.button`
     height: 45px;
-    line-height: 45px;
-    width: 30%;
+    line-height: 45px;  
     background: #000;
     color: #fff;
     font-weight: bold;

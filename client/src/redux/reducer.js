@@ -5,6 +5,7 @@ import {
     GET_LIST_GENRES,
 
     ORDER_FILTER_ASC_DSC,
+    FILTER_BY_DATA_AND_GENRE,
 
     FILTER_BY_GENRE,
     ORDER_FILTER
@@ -21,7 +22,7 @@ let aTemp = [];
 
 const rootReducer = (state = initialState, action) => {
     const {allVideoGames, customVideoGames} = state;
-    const {type, payload, filter_genre, value_order, pDad, pSoon} = action;
+    const {type, payload, filter_genre, value_order, pDad, pSoon, p1dataType, p2Genre} = action;
 
     switch(type) {
         case GET_ALL_VIDEOGAMES:
@@ -33,6 +34,7 @@ const rootReducer = (state = initialState, action) => {
         case GET_VIDEOGAMES_BY_NAME:
             return {
                 ...state,
+                allVideoGames: payload,
                 customVideoGames: payload
             }
         case GET_VIDEOGAMES_BY_ID:
@@ -67,7 +69,7 @@ const rootReducer = (state = initialState, action) => {
                 else{
                     aTemp = customVideoGames;
                 }
-                return { 
+                return {
                     ...state,
                     customVideoGames: [...aTemp]
                 }
@@ -97,16 +99,56 @@ const rootReducer = (state = initialState, action) => {
                     customVideoGames: allVideoGames
                 }
             }
+        case FILTER_BY_DATA_AND_GENRE:
+            
+            const aVideoGameByDataType = 
+                p1dataType === 'DATA BASE' ? allVideoGames.filter(pI => {
+                        return pI.id > 9000000})
+                : p1dataType === 'API' ? allVideoGames.filter(pI => {
+                    return pI.id < 9000000}) 
+                : allVideoGames;
+            
+            if (p2Genre === 'ALL') {
+                return {
+                    ...state,
+                    customVideoGames: aVideoGameByDataType
+                }
+            }
+            else{
+                const aFilterByGenre = aVideoGameByDataType.filter(pI => {
+                    console.log(pI.genres);
+                    if (pI.genres){
+                        for( const pII of pI.genres) {
+                            if(pII.name === p2Genre) {
+                                return pI;
+                            }
+                        }
+                    }
+                    else{
+                        return null;
+                    }
+                });
+                return {
+                    ...state,
+                    customVideoGames: [...aFilterByGenre]
+                }
+            }
         //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         case FILTER_BY_GENRE: 
             const aVideoGameFilter = filter_genre === 'All' ? allVideoGames
-            : allVideoGames.filter(pI => {
-               for( const pII of pI.genres) {
-                   if(pII.name === filter_genre) {
-                       return pI;
-                   }
-               }
+            : customVideoGames.filter(pI => {
+                console.log(pI.genres);
+                if (pI.genres){
+                    for( const pII of pI.genres) {
+                        if(pII.name === filter_genre) {
+                            return pI;
+                        }
+                    }
+                }
+                else{
+                    return null;
+                }
             });
             return {
                 ...state,

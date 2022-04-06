@@ -6,6 +6,7 @@ export const GET_VIDEOGAMES_BY_ID = 'GET_VIDEOGAMES_BY_ID';
 export const GET_LIST_GENRES = 'GET_LIST_GENRES';  
 
 export const ORDER_FILTER_ASC_DSC = 'ORDER_FILTER_ASC_DSC';  
+export const FILTER_BY_DATA_AND_GENRE = 'FILTER_BY_DATA_AND_GENRE';  
 
 export const FILTER_BY_GENRE = 'FILTER_BY_GENRE';  
 export const ORDER_FILTER = 'ORDER_FILTER';  
@@ -75,6 +76,13 @@ export const OrderFilterAscDsc = (pDad, pSoon) => {
   }
 }
 
+export const FilterByDataAndGenre = (p1dataType, p2Genre) => {
+  return {
+    type: FILTER_BY_DATA_AND_GENRE,
+    p1dataType,
+    p2Genre
+  }
+}
 
 
 
