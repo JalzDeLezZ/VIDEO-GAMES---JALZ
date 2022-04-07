@@ -7,9 +7,7 @@ export const GET_LIST_GENRES = 'GET_LIST_GENRES';
 
 export const ORDER_FILTER_ASC_DSC = 'ORDER_FILTER_ASC_DSC';  
 export const FILTER_BY_DATA_AND_GENRE = 'FILTER_BY_DATA_AND_GENRE';  
-
-export const FILTER_BY_GENRE = 'FILTER_BY_GENRE';  
-export const ORDER_FILTER = 'ORDER_FILTER';  
+ 
 
 export const getAllVideoGames =  (pQuery) => {
   return async (dispatch) => {
@@ -85,25 +83,4 @@ export const FilterByDataAndGenre = (p1dataType, p2Genre) => {
 }
 
 
-
-
-
-
-
-
-
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-export const filterByGenre = (filter_genre) => {
-  return {
-    type: FILTER_BY_GENRE,
-    filter_genre
-  }
-}
-
-export const OrderFilter = (value_order) => {
-  return {
-    type: ORDER_FILTER,
-    value_order
-  }
-}
+ 

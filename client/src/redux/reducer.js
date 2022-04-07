@@ -6,9 +6,7 @@ import {
 
     ORDER_FILTER_ASC_DSC,
     FILTER_BY_DATA_AND_GENRE,
-
-    FILTER_BY_GENRE,
-    ORDER_FILTER
+ 
 } from "./action";
 
 const initialState = {
@@ -132,56 +130,7 @@ const rootReducer = (state = initialState, action) => {
                     ...state,
                     customVideoGames: [...aFilterByGenre]
                 }
-            }
-        //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        case FILTER_BY_GENRE: 
-            const aVideoGameFilter = filter_genre === 'All' ? allVideoGames
-            : customVideoGames.filter(pI => {
-                console.log(pI.genres);
-                if (pI.genres){
-                    for( const pII of pI.genres) {
-                        if(pII.name === filter_genre) {
-                            return pI;
-                        }
-                    }
-                }
-                else{
-                    return null;
-                }
-            });
-            return {
-                ...state,
-                customVideoGames: aVideoGameFilter
-            }
-        case ORDER_FILTER:
-            console.log("ORDER_FILTER",value_order);
-            switch (value_order) { 
-                case "ASC":
-                aTemp = customVideoGames.sort( ( a , b ) => {
-                    if (a.name.toLowerCase() < b.name.toLowerCase()) return -1
-                    if (a.name.toLowerCase() > b.name.toLowerCase()) return 1
-                    return 0
-                });
-                return {
-                    ...state,
-                    customVideoGames: [...aTemp]
-                }
-
-                case "DSC": 
-                    aTemp= customVideoGames.sort( ( a , b ) => {
-                        if (a.name.toLowerCase() > b.name.toLowerCase()) return -1
-                        if (a.name.toLowerCase() < b.name.toLowerCase()) return 1
-                        return 0
-                    });
-                    return { 
-                        ...state,
-                        customVideoGames: [...aTemp]
-                    }
-                
-                default: return {...state}
-            }
-            
+            } 
         default: return {...state}
     };
 };

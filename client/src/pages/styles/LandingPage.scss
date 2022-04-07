@@ -8,41 +8,58 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    .myButton {
-        background-image: linear-gradient(to right, #E55D87 0%, #5FC3E4  51%, #E55D87  100%)
+
+    .pLP-imageLogo{
+      filter: drop-shadow(0 -3px 6px black);
+      position: absolute;
+      top: 0px;
+      margin-top: 166px;
     }
-    .myButton {
-       margin: 10px;
-       padding: 15px 45px;
-       text-align: center;
-       text-transform: uppercase;
-       transition: 0.5s;
-       background-size: 200% auto;
-       color: white;            
-       box-shadow: 0 0 20px #eee;
-       border-radius: 10px;
-       display: block;
-     }
-
-     .myButton:hover {
-       background-position: right center; /* change the direction of the change here */
-       color: #fff;
-       text-decoration: none;
-     }
-
-     .loading{
-        background-repeat: no-repeat;
-        background-position: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100px;
-        height: 100px;
-        img{
-          height: 100%;
-          width: 100%;    
-          border-radius: 50%;
-        }
-     }
+    .pLP-body{
+      margin-top: 100px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      
+      h1{
+        text-shadow: 0 0 15px rgba(0, 0, 0, 0.5), 0 0 10px rgba(0, 0, 0, 0.5);
+      }
+      .myButton {
+          background-image: linear-gradient(to right, #E55D87 0%, #5FC3E4  51%, #E55D87  100%)
+      }
+      .myButton {
+         margin: 10px;
+         padding: 15px 45px;
+         text-align: center;
+         text-transform: uppercase;
+         transition: 0.5s;
+         background-size: 200% auto;
+         color: white;            
+         box-shadow: 0 0 20px #eee;
+         border-radius: 10px;
+         display: block;
+       }
+  
+       .myButton:hover {
+         background-position: right center; /* change the direction of the change here */
+         color: #fff;
+         text-decoration: none;
+       }
+  
+       .loading{
+          background-repeat: no-repeat;
+          background-position: center;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100px;
+          height: 100px;
+          img{
+            height: 100%;
+            width: 100%;    
+            border-radius: 50%;
+          }
+       }
+    }
 }

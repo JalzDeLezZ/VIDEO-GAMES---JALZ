@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import { getListGenres } from '../../redux/action';
-import { MyLabel, MyInputGroup,MyInput,ErrorLegend, MyTextArea , MySelect, ReturnedContainer  } from './Elements';
+import { MyLabel, MyInputGroup,MyInput,ErrorLegend, MyTextArea , MySelect, ReturnedContainer, ContainerDetail  } from './Elements';
 
 /* ****************************************************************** */
 /* **************************INPUT GROUP*********************** */
 /* ****************************************************************** */
 const InputGroup = (props) => {
 
-    const {pMSecondPass, pType, pLabel, pPlaceholder, pName, pErrorLegend, pRegexp, pOState, pOSetState , pMin ,pMax} = props
+    const {pType, pLabel, pPlaceholder, pName, pErrorLegend, pRegexp, pOState, pOSetState , pMin ,pMax} = props
 
     const mOnChange = (event) => {
         const {value,name} = event.target;
@@ -24,20 +24,17 @@ const InputGroup = (props) => {
             if (pRegexp.test(pOState[pName].current_data)) {
                 console.log('INN Correct')
                 pOSetState(
-                    {...pOState, 
+                    {...pOState,
                     [name]: {current_data: value, is_valid: 'true'}}
                 );
             } else {
                 console.log('INN Incorrect')
                 pOSetState(
-                    {...pOState, 
+                    {...pOState,
                     [name]: {current_data: value, is_valid: 'false'}}
                 );
             }
-        }
-        if (pMSecondPass) {
-            pMSecondPass();
-        }
+        } 
     } 
   return (
     <div>
@@ -134,7 +131,7 @@ const InnSearch = ({pPlaceHolder, pLabel, pAState, pASetState}) => {
         setAGenres(oMatch);
     }
   return (
-      <div>
+      <ContainerDetail>
             <MyLabel htmlFor="iInnGenres">{pLabel}</MyLabel>
             <div className="inputSearch">
                 <input
@@ -171,7 +168,7 @@ const InnSearch = ({pPlaceHolder, pLabel, pAState, pASetState}) => {
                     })
                 }
             </ReturnedContainer>
-      </div>
+      </ContainerDetail>
   )
 }
 /* ****************************************************************** */

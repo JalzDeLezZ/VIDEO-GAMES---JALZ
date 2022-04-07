@@ -1,12 +1,29 @@
 .page-detail_video_game{
-    width: 100%;
-    min-height: 100vh;
-    background-image: url("../../assets/img/Home.jpg");
-    background-size: cover;/* contain */
-    background-repeat: no-repeat;
-    background-position: center;
-    display: flex; 
-    align-items: center;
-    flex-direction: column;
- 
+    background-color: rgba(0, 0, 0, 0.63);
+    width: 80%;
+    min-height: 80vh;
+    color: white;
+    backdrop-filter: blur(4px);
+    padding: 19px;
+    text-align: right;
+    ol,ul{
+        text-align: left;
+        li{
+            margin-left: 23px;
+        }
+    }
+    h1{
+        color: rgba(255, 255, 255, 0.89);
+        text-shadow: 0 0 15px rgba(255,255,255,.5), 0 0 10px rgba(255,255,255,.5);
+    }
+    details{
+        margin: 0 36px;
+        text-align: justify;
+        height: 100px;
+        overflow: auto;
+        padding: 6px;
+        summary{
+            cursor: pointer;
+        }
+    }
 }

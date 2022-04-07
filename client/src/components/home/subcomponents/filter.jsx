@@ -1,9 +1,9 @@
 import React, {  useEffect, useRef, useState } from 'react'
 import SelectGroup from '../../elements/SelectGroup';
-import styled from "styled-components";
 import { useDispatch, useSelector } from 'react-redux'
 import RButtonGroup from '../../elements/RButtonGroup';
-import { OrderFilterAscDsc, FilterByDataAndGenre, OrderFilter, filterByGenre, getListGenres, getAllVideoGames} from '../../../redux/action';
+import { OrderFilterAscDsc, FilterByDataAndGenre, getListGenres, getAllVideoGames} from '../../../redux/action';
+import styled,{css} from "styled-components";
 
 const Filter = () => {
   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  
@@ -51,11 +51,28 @@ const Filter = () => {
     xDispatch_action(OrderFilterAscDsc(typeOrder, value))
   }
   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  const [crntFilterBtn , setFilterBtn] = useState(false);
+  const mOnClickFilter = () => {
+    setFilterBtn(!crntFilterBtn)
+    if (crntFilterBtn === false) {
+      rForm.current.reset();
+      setTypeData('ALL');
+      setFilterGenre('ALL');
+      setTipeOrder('NONE');
+      xDispatch_action(getAllVideoGames())
+    }
+  }
   return (
     <MyDiv>
-      <h3>FILTERS</h3>
- 
-      <form ref={rForm} style={{display: ""}}> 
+      <div>
+        <MyButton
+          type= "button"
+          onClick={mOnClickFilter}
+          value={crntFilterBtn} 
+        >FILTERS</MyButton> 
+      </div>
+
+      <MyForm ref={rForm} pValidation = {crntFilterBtn}> 
         <SelectGroup
           pLabel = "GENRE"
           pName = "n_genre"
@@ -94,7 +111,7 @@ const Filter = () => {
             pMOnClickRbt={mOrderAscDsc}
           />
         </MySection>
-      </form> 
+      </MyForm> 
     </MyDiv>
   )
 }
@@ -105,17 +122,36 @@ const MyDiv = styled.div`
   background-color: #000000be;
   color: white;
   text-align: center;
-  padding: 10px;
-  h3, h4{
+  padding: 10px; 
+  h4{
     margin: 0;
     padding: 0;
   }
 `
+const MyButton = styled.button` 
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+`
+
 const MySection = styled.section`
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 10px 28px 0px;
+`
+const MyForm = styled.form`
+  
+  ${props => props.pValidation === true && css`
+      display: block;
+    `}
+  ${props => props.pValidation === false && css`
+      display: none;
+  `}
 `
 /* 
   if (value === 'All' || value === 'NONE') {

@@ -18,7 +18,7 @@ const SearchGroup = () => {
     <MyFigure className= "header-input-container">
         <span className="search-icon"/>
         <input 
-          type="text" 
+          type="search" 
           placeholder="Search Video Game By Name" 
           onChange={(e) => {setSearch(e.target.value)}}
           className="header-input"

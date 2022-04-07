@@ -17,10 +17,11 @@ const DetailVideoGame = () => {
 
   return (
     <MyDiv pImg = {reducer_videgame.image}>
-      <section>
+      <section className='page-detail_video_game'>
         <h1>{reducer_videgame.name}</h1>
-        <p>{reducer_videgame.rating}</p>
+        <p>Rating: {reducer_videgame.rating}</p>
         <ol>
+          GENEROS: 
           {
             reducer_videgame.genres?.map((pI,index) => {
               return <li key={index}>{pI.name}</li>
@@ -28,13 +29,14 @@ const DetailVideoGame = () => {
           }
         </ol>
         <ul>
+          PLATAFORMAS: 
           {
             reducer_videgame.plataform?.map((pI,index) => {
               return <li key={index}>{pI}</li>
             })
           }
         </ul>
-        <details>{reducer_videgame.description}</details>
+        <details open><summary>Más Detalles del Juego:</summary>{reducer_videgame.description}</details>
         {/* {JSON.stringify(reducer_videgame)} */}
       </section>
       <Link to= "/home">
@@ -49,7 +51,6 @@ const DetailVideoGame = () => {
 export default DetailVideoGame
 
 const MyDiv = styled.div`
-    width: auto;
     min-height: 100vh;
     overflow: hidden;
     /* background-image: url("../../assets/img/Home.jpg"); */
@@ -57,11 +58,9 @@ const MyDiv = styled.div`
     background-size: cover;/* contain */
     background-repeat: no-repeat;
     background-position: center;
-    display: flex; 
+    display: flex;
     align-items: center;
-    flex-direction: column;
-    color: white;
-    font-weight: bold;
+    justify-content: center;
     .container-button{
         width: 90px;
         height: 70px;
