@@ -15,7 +15,7 @@ const SearchGroup = () => {
   }
 
   return (
-    <MyFigure className= "header-input-container">
+    <MyForm className= "header-input-container">
         <span className="search-icon"/>
         <input 
           type="search" 
@@ -27,14 +27,14 @@ const SearchGroup = () => {
         <button 
           onClick={mOnClickButton} 
           className="second-icon"/>
-    </MyFigure>
+    </MyForm>
   )
 }
 
 export default SearchGroup
 
 
-const MyFigure = styled.figure`
+const MyForm = styled.form`
     width: 100%; 
     border: #dfe1e500;
     display: flex;

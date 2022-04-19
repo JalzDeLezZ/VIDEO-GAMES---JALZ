@@ -101,7 +101,7 @@ const rootReducer = (state = initialState, action) => {
             
             const aVideoGameByDataType = 
                 p1dataType === 'DATA BASE' ? allVideoGames.filter(pI => {
-                        return pI.id > 9000000})
+                        return pI.id >= 9000000})
                 : p1dataType === 'API' ? allVideoGames.filter(pI => {
                     return pI.id < 9000000}) 
                 : allVideoGames;

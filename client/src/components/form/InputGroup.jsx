@@ -157,13 +157,15 @@ const InnSearch = ({pPlaceHolder, pLabel, pAState, pASetState}) => {
                 {
                     crntAGenres?.map((pI, i) => {
                         return ( 
-                        <article key={i}>
-                            <p >{pI}
-                                <button
-                                    type='button' 
-                                    onClick={() => {mDeleteOne(pI)}}
-                                >X</button>
-                            </p>
+                        <article key={i}> 
+                            {pI}
+                            
+
+                            <button style={{"margin": "0 7px", width: '26px'}}
+                                type='button' 
+                                onClick={() => {mDeleteOne(pI)}}
+                            >X</button> 
+
                         </article>)
                     })
                 }
@@ -217,9 +219,9 @@ const AddSelect = (props) => {
                 {
                     pAState?.map((pI, i) => {
                         return ( 
-                        <article key={i}>
-                            <p>{pI} </p>
-                            <button 
+                        <article key={i}> 
+                             {pI}
+                            <button style={{"margin": "0 7px", width: '26px'}}
                                 onClick={() => mDeletePlatform(pI)}
                             >X</button>
                         </article>)

@@ -16,9 +16,9 @@ exports.videoGamesXGenres = async(req, res) => {
             }
         });
         let nextId = oMaxId[0]? oMaxId[0].id + 1 : 9000000;
-    
+            
         // console.log("=>>>>>>>>>>>>>>",nextId, "XX");
-        
+            
         await VideoGames.create({
             id: nextId,
             name: name,
@@ -47,7 +47,24 @@ exports.getVideoGameById = async(req, res) => {
             include: Genres
         });
         if (!!oVideoGameDB) {
-            res.json(oVideoGameDB);}
+            
+            const oDBFormat =  {
+                id: oVideoGameDB.id,
+                name: oVideoGameDB.name,
+                image: oVideoGameDB.image,
+                description: oVideoGameDB.description,
+                rating: oVideoGameDB.rating,
+                releaseDate: oVideoGameDB.released_date,
+                plataform: oVideoGameDB.platforms,
+                genres: oVideoGameDB.Genres.map(pIV => {
+                    return {
+                        id: pIV.id,
+                        name: pIV.name,
+                    };
+                })
+            };
+
+            res.json(oDBFormat);}
         else {
             console.log("No se encontro el video game en la base de datos");
             const {data} = await axios.get(`https://api.rawg.io/api/games/${idPais}?key=${KEY_API}`)
@@ -70,7 +87,7 @@ exports.getVideoGameById = async(req, res) => {
                     }), 
                 };
 
-            res.json( oApiFormat ); 
+            res.json( oApiFormat )
         }
 
     } catch (e) {

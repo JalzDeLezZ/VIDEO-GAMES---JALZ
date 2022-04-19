@@ -59,7 +59,7 @@ const Filter = () => {
       setTypeData('ALL');
       setFilterGenre('ALL');
       setTipeOrder('NONE');
-      xDispatch_action(getAllVideoGames())
+      // xDispatch_action(getAllVideoGames())
     }
   }
   return (
