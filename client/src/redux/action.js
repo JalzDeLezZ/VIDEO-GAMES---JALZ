@@ -12,7 +12,7 @@ export const FILTER_BY_DATA_AND_GENRE = 'FILTER_BY_DATA_AND_GENRE';
 export const getAllVideoGames =  (pQuery) => {
   return async (dispatch) => {
     try {
-      const {data} = await axios.get(`http://localhost:3001/videogames?qry=${pQuery}`);
+      const {data} = await axios.get(`http://18.207.107.246:3001/videogames?qry=${pQuery}`);
       dispatch({
         type: GET_ALL_VIDEOGAMES,
         payload: data
@@ -24,7 +24,7 @@ export const getAllVideoGames =  (pQuery) => {
 export const getVideoGameByName =  (pName) => {
   return async (dispatch) => {
     try {
-      const {data} = await axios.get(`http://localhost:3001/videogames?name=${pName}`);
+      const {data} = await axios.get(`http://18.207.107.246:3001/videogames?name=${pName}`);
       dispatch({
         type: GET_VIDEOGAMES_BY_NAME,
         payload: data
@@ -36,7 +36,7 @@ export const getVideoGameByName =  (pName) => {
 export const getDetailVideoGameById =  (pId) => {
   return async (dispatch) => {
     try {
-      const {data} = await axios.get(`http://localhost:3001/videogame/${pId}`);
+      const {data} = await axios.get(`http://18.207.107.246:3001/videogame/${pId}`);
       dispatch({
         type: GET_VIDEOGAMES_BY_ID,
         payload: data
@@ -48,7 +48,7 @@ export const getDetailVideoGameById =  (pId) => {
 export const getListGenres =  () => {
   return async (dispatch) => {
     try {
-      const {data} = await axios.get(`http://localhost:3001/genres`);
+      const {data} = await axios.get(`http://18.207.107.246:3001/genres`);
       dispatch({
         type: 'GET_LIST_GENRES',
         payload: data
@@ -60,7 +60,7 @@ export const getListGenres =  () => {
 export const postVideoGamesXGenres = (dataForm) => {
   return async () => {
     try {
-      const response = await axios.post(`http://127.0.0.1:3001/videogame`, dataForm);
+      const response = await axios.post(`http://18.207.107.246:3001/videogame`, dataForm);
       return response;
     } catch (error) { console.error(error);}
   }
