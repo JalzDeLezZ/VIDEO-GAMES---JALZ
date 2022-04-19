@@ -12,26 +12,29 @@ const CardsByPagination = (props) => {
   return (
     <>
       {
-        pBLoading?<span>LOADING</span>:null
+        pBLoading?<h3>LOADING</h3>:null
       }
-      {console.log(pBLoading)}
-      <MyDiv>
-        {
-          (pAPartOfTotalCards.length > 0) ? pAPartOfTotalCards.map((pI,i) => {
-            return (
-              <Card
-                key={i}
-                pImage={pI.image}
-                pName={pI.name}
-                pId={pI.id}
-                pAGenres = {pI.genres}
-              />
-            )
-          })
-          : (!pBLoading) && <h1>No Hay Data</h1> 
-        }
-      </MyDiv>
-      <DivButons style={{marginTop: "4px"}}>
+      { !pBLoading &&
+        <div>
+
+        <MyDiv>
+          {
+            (pAPartOfTotalCards.length > 0) ? pAPartOfTotalCards.map((pI,i) => {
+              return (
+                <Card
+                  key={i}
+                  pImage={pI.image}
+                  pName={pI.name}
+                  pId={pI.id}
+                  pAGenres = {pI.genres}
+                />
+              )
+            })
+            : (!pBLoading) && <h1>No Hay Data</h1> 
+          }
+        </MyDiv>
+
+        <DivButons style={{marginTop: "4px"}}>
           {
             aNumberPage.map(pI => (
               
@@ -40,7 +43,10 @@ const CardsByPagination = (props) => {
               
             ))
           }  
-      </DivButons>
+        </DivButons>
+
+        </div>      
+      }
     </>
   )
 }

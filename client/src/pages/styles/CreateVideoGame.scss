@@ -14,13 +14,15 @@
         height: 70px;
         background-color: black;
         position: absolute;
-        top: 0;
-        left: 0;
-        clip-path: polygon(0 0, 0% 100%, 100% 0);
+        right: 0;
+        bottom: 0;
+        display: flex;
+        clip-path: polygon(100% 0, 0% 100%, 100% 100%);
         .back{
             color: white;
-            font-size: 2rem;
-            margin-left: 9px;
+            font-size: 2rem; 
+            margin-left: 44px;
+            margin-top: 27px;
         }
     }
 }

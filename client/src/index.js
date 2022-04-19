@@ -17,20 +17,20 @@ ReactDOM.render(
 
   ,document.getElementById('root')
 );
-/* 
+
+/*
 npm install react-redux
 npm i react-router-dom
 npm i redux-thunk
 npm install --save redux-devtools-extension
 npm i axios
-npm install sass
 
-*/
 /* STYLES
 npm install --save styled-components
-npm i less 
+npm install sass
+npm i less
 */
-
+// de repente  les ayude para facilitar las istalaciones de las depencendias del frontend y algunas estructuras  de ellos
 /* 
 https://github.com/remix-run/react-router/tree/main/docs
 */

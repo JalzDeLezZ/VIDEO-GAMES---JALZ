@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+  ##############################
+  # Backend Container
+  ##############################
+
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=123456789
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=videogames
+    ports:
+      - "5432:5432"
+
+  api:
+    restart: always
+    image: api-videog  
+    environment:
+      DB_USER: postgres
+      DB_PASSWORD: 123456789
+      DB_HOST: db
+      KEY_API: e49a1296131b4687815a0bd84535da42
+      restart: always
+    depends_on:
+      - db 
+    ports:
+      - "3001:3001"
+
+  ##############################
+  # UI Container
+  ##############################
+  front:
+    build:
+      context: ./client
+      dockerfile: ./Dockerfile
+    image: client-docker 
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./client/nginx/certbot/conf:/etc/letsencrypt
+      - ./client/nginx/certbot/www:/var/www/certbot
+    tty: true  

@@ -28,6 +28,11 @@ conn.sync({ force: false }).then(() => {
 });
 
 /* 
+
+GET https://api.rawg.io/api/platforms?key=e49a1296131b4687815a0bd84535da42
+
+GET https://api.rawg.io/api/platforms/lists/parents?key=e49a1296131b4687815a0bd84535da42
+
 GET https://api.rawg.io/api/games?key=e49a1296131b4687815a0bd84535da42
 
 GET https://api.rawg.io/api/genres?key=e49a1296131b4687815a0bd84535da42

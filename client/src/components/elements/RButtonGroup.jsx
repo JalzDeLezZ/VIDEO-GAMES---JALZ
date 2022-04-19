@@ -5,10 +5,10 @@ const RButtonGroup = (props) => {
     return (
         <ContChecks>
             <Label htmlFor={pId}>{pLabel}</Label>
-            <input 
-                type="radio" id={pId} 
+            <input
+                type="radio" id={pId}
                 onClick={pMOnClickRbt}
-                value={pValue} 
+                value={pValue}
                 name={pName}
             />
         </ContChecks>

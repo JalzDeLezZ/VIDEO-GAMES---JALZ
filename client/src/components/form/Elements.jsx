@@ -69,7 +69,7 @@ const ErrorLegend = styled.p`
     color: ${oColors.error};
     display: none;
     
-    ${props => props.pValidation === 'false' && css`
+    ${props => props.pValidation === 'true' && css`
         display: none;
     `}
     ${props => props.pValidation === 'false' && css`
@@ -103,13 +103,18 @@ const MyTextArea = styled.textarea`
     }
 `
 const MySelect = styled.select`
-    width: 63vw;
+    width: 100%;
+    outline: none;
+    border: none;
+    background: #ffffff;
+    border-radius: 3px;
+    height: 45px;
+    padding: 0 10px;
 `
 
 const MyButton = styled.button`
     height: 45px;
-    line-height: 45px;
-    width: 30%;
+    line-height: 45px;  
     background: #000;
     color: #fff;
     font-weight: bold;
@@ -117,7 +122,7 @@ const MyButton = styled.button`
     border-radius: 3px;
     cursor: pointer;
     transition: .1s ease all;
-
+    margin: 10px;
     &:hover{
         box-shadow: 3px 0px 30px rgba(163,163,163,0.1);
     }
@@ -127,6 +132,7 @@ const ContainerSubmit = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0 20px;
     /* @media(max-width:350px){
         grid-column: span 1;
     } */
@@ -157,6 +163,65 @@ const ReturnedContainer = styled.section`
         }
     }
 `
+const ErrorMessage = styled.article`
+    text-align: center;
+    line-height: 19px;
+    background-color: #f66060;
+    padding: 7px 15px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    p{
+        margin: 0;
+    }
+    b{
+        margin-left: 10px;
+    }
+`
+
+const SuccessfullyMessage = styled.p`
+    font-size: 14px;
+    color: ${oColors.exito};
+    font-weight: bold;
+`
+
+
+const ContainerDetail = styled.div`
+    display: flex;
+    flex-direction: column;
+    label{
+        margin-bottom: 9px;
+        margin-left: 9px;
+    }
+    .inputSearch{
+        display: flex;
+    }
+    input{
+        width: 70%;
+        height: 45px;
+        border: 1px solid #fff;
+        border-radius: 3px 0 0 3px;
+        padding: 0 10px 0 10px;
+        outline: none;
+    }
+    details{
+         display: none;
+         position: absolute;
+    }
+    button{
+        width: 30%;
+        display: inline-block;
+        background: #fff;
+        border: none;
+        outline: none;
+        border-radius: 0 3px 3px 0;
+        cursor: pointer;
+        &:hover{
+            box-shadow: inset -2px -1px 5px rgb(0 0 0 / 50%);
+        }
+    }
+`
+
 export {
     MyForm,
     MyLabel,
@@ -167,5 +232,8 @@ export {
     MySelect ,
     MyButton,
     ContainerSubmit,
-    ReturnedContainer
+    ReturnedContainer,
+    ErrorMessage,
+    SuccessfullyMessage,
+    ContainerDetail
 }

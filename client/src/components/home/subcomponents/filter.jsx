@@ -1,59 +1,83 @@
-import React, {  useEffect, useRef } from 'react'
+import React, {  useEffect, useRef, useState } from 'react'
 import SelectGroup from '../../elements/SelectGroup';
-import styled from "styled-components";
 import { useDispatch, useSelector } from 'react-redux'
 import RButtonGroup from '../../elements/RButtonGroup';
-import { OrderFilterAscDsc, OrderFilter, filterByGenre, getListGenres, getAllVideoGames} from '../../../redux/action';
+import { OrderFilterAscDsc, FilterByDataAndGenre, getListGenres, getAllVideoGames} from '../../../redux/action';
+import styled,{css} from "styled-components";
 
 const Filter = () => {
+  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  
 
-  //DISPATCH & SELECTOR
+  const rForm = useRef();
+  ////******DISPATCH & SELECTOR//******
   const xDispatch_action = useDispatch();
   useEffect(() => {
     xDispatch_action(getListGenres('ALL'))
   },[xDispatch_action]);
   const reducer_genres = useSelector( state => state.aListGenres)
-  
-  //ARRAY GENRES
+  //*******ARRAY GENRES//********
   let aGenres = reducer_genres.map(pI => pI.name);
-  aGenres.unshift('All');//aGenres = ['All', ...aGenres]
-  const x = useRef();
-  //FILTRO SELECT X' VALUE => DISPATCH
-  const mOnChangeSelect = (e) => {
-    const {value} = e.target; console.log(value);
-    if (value === 'All' || value === 'NONE') {
-      console.log(x)
-      x.current.reset();
-    }
-    xDispatch_action(filterByGenre(value))
+  aGenres.unshift('ALL');//aGenres = ['All', ...aGenres]
+
+  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  const [typeData, setTypeData] = useState('ALL');
+  const [filterGenre, setFilterGenre] = useState('ALL');
+  const mOnChangeGenreSlc = (e) => {
+    const {value} = e.target;
+    setFilterGenre(value);
+    xDispatch_action(FilterByDataAndGenre(typeData, value))
   }
 
-  //FILTER RADIO BUTTONS X' VALUE => DISPATCH
-  // const [sRadioBtn , setSRadioBtn] = useState(null)
-  const mOnClickRbtOrder = (e) =>{
-    const {value} = e.target;  console.log(value);
-    // setSRadioBtn(value);
-    xDispatch_action(OrderFilter(value))
-  }
-  //
   const mOnChangeSelectData = (e) => {
-    const {value} = e.target;  console.log(value);
-    xDispatch_action(getAllVideoGames(value));
+    const {value} = e.target;
+    setTypeData(value);
+    // xDispatch_action(getAllVideoGames(value));
+    xDispatch_action(FilterByDataAndGenre(value, filterGenre));
   }
+
+  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  const [typeOrder, setTipeOrder] = useState('NONE');
+  const [filterAscDsc, setFilterAscDsc] = useState('NONE');
+
+  const mTypeOrder = (e)=> {
+    const {value} = e.target;
+    setTipeOrder(value);
+    xDispatch_action(OrderFilterAscDsc(value, filterAscDsc))
+  }
+
   const mOrderAscDsc = (e)=> {
-    const {value} = e.target;  console.log(value);
-    xDispatch_action(OrderFilterAscDsc("DAD", "SOON"))
+    const {value} = e.target;
+    setFilterAscDsc(value);
+    xDispatch_action(OrderFilterAscDsc(typeOrder, value))
+  }
+  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  const [crntFilterBtn , setFilterBtn] = useState(false);
+  const mOnClickFilter = () => {
+    setFilterBtn(!crntFilterBtn)
+    if (crntFilterBtn === false) {
+      rForm.current.reset();
+      setTypeData('ALL');
+      setFilterGenre('ALL');
+      setTipeOrder('NONE');
+      // xDispatch_action(getAllVideoGames())
+    }
   }
   return (
     <MyDiv>
-      <h3>FILTERS</h3>
- 
-      <form ref={x} style={{display: ""}}> 
+      <div>
+        <MyButton
+          type= "button"
+          onClick={mOnClickFilter}
+          value={crntFilterBtn} 
+        >FILTERS</MyButton> 
+      </div>
+
+      <MyForm ref={rForm} pValidation = {crntFilterBtn}> 
         <SelectGroup
           pLabel = "GENRE"
           pName = "n_genre"
           pAoptions= {aGenres}
-          pMReloadReducer = {mOnChangeSelect}
+          pMReloadReducer = {mOnChangeGenreSlc}
         />
         
         <SelectGroup
@@ -67,27 +91,27 @@ const Filter = () => {
           pLabel = "ORDEN"
           pName = "n_order"
           pAoptions= {["NONE","ALPHABETIC", "RATING"]}
-          pMReloadReducer = {mOnChangeSelect}
+          pMReloadReducer = {mTypeOrder}
         />
 
         <MySection>
-          <RButtonGroup 
+          <RButtonGroup
             pName="order"
             pId="iAsc" 
             pLabel="Ord. Asc" 
             pValue="ASC" 
-            pMOnClickRbt={mOnClickRbtOrder}
+            pMOnClickRbt={mOrderAscDsc}
           />
           
           <RButtonGroup
-            pName="order"  
+            pName="order"
             pId="iDsc"
-            pLabel="Ord. Dsc" 
+            pLabel="Ord. Dsc"
             pValue="DSC"
-            pMOnClickRbt={mOnClickRbtOrder}
+            pMOnClickRbt={mOrderAscDsc}
           />
         </MySection>
-      </form> 
+      </MyForm> 
     </MyDiv>
   )
 }
@@ -98,15 +122,42 @@ const MyDiv = styled.div`
   background-color: #000000be;
   color: white;
   text-align: center;
-  padding: 10px;
-  h3, h4{
+  padding: 10px; 
+  h4{
     margin: 0;
     padding: 0;
   }
 `
+const MyButton = styled.button` 
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+`
+
 const MySection = styled.section`
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 10px 28px 0px;
 `
+const MyForm = styled.form`
+  
+  ${props => props.pValidation === true && css`
+      display: block;
+    `}
+  ${props => props.pValidation === false && css`
+      display: none;
+  `}
+`
+/* 
+  if (value === 'All' || value === 'NONE') {
+    console.log(rForm)
+    rForm.current.reset();
+  } 
+    
+
+*/

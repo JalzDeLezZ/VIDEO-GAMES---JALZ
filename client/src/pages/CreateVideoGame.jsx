@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { ContainerSubmit, MyButton, MyForm } from '../components/form/Elements'
+import React, { useRef, useState } from 'react'
+import { ContainerSubmit, ErrorMessage, MyButton, MyForm, SuccessfullyMessage } from '../components/form/Elements'
 import { DetailGroup, InputGroup, InnSearch, AddSelect } from '../components/form/InputGroup'
 import './styles/CreateVideoGame.scss'
 import PLATFORMS from '../assets/helpers/Platforms.json'
@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 
 const CreateVideoGame = () => {
   const xDispatch = useDispatch();
-
+  let tForm = useRef(null);
   const [oStates, setOstates] = useState(
     {
       n_name : { current_data: '', is_valid: null },
@@ -22,24 +22,35 @@ const CreateVideoGame = () => {
   const [crntPlatforms, setPlatforms] = useState([]);
   const [crntGenres, setGenres] = useState([]);
   
-  
+  const [crntFormValidation , setFormValidation] = useState(null);
 
   const mOnSubmit = (event) => {
     event.preventDefault();
-    let oPost = {};
-    oPost = {
-      "name": oStates.n_name.current_data,
-      "image": "https://i.ibb.co/X2bcwRM/mario.jpg",
-      "description": oStates.n_desc,
-      "release_date": oStates.n_date.current_data, 
-      "rating": oStates.n_rating.current_data,
-      "aPlatform": crntPlatforms,
-      "aGenres": crntGenres
-    }
-    console.log(oPost);
-    xDispatch(postVideoGamesXGenres(oPost));
-    /* name, image, description, release_date, rating, aPlatform, aGenres */
-    event.target.reset();
+      if (oStates.n_name.is_valid   === "false" ||
+          oStates.n_date.is_valid   === "false" ||
+          oStates.n_rating.is_valid === "false" ||
+          oStates.n_desc.length <= 4 ||
+          crntPlatforms.length <= 0
+        ) {
+          setFormValidation(false)
+      }
+      else {
+        let oPost = {
+          "name": oStates.n_name.current_data,
+          "image": "https://i.ibb.co/X2bcwRM/mario.jpg",
+          "description": oStates.n_desc,
+          "release_date": oStates.n_date.current_data, 
+          "rating": oStates.n_rating.current_data,
+          "aPlatform": crntPlatforms,
+          "aGenres": crntGenres
+        }
+        console.log(oPost);
+        xDispatch(postVideoGamesXGenres(oPost));
+        
+        // event.target.reset();
+        // tForm.current.reset();
+        setFormValidation(null);
+      }
   }
 
   return (
@@ -49,13 +60,13 @@ const CreateVideoGame = () => {
         <span className='back'>←</span>
         </div>
       </Link>
-      <MyForm onSubmit={mOnSubmit}>
+      <MyForm onSubmit={mOnSubmit} ref={tForm}>
         
         <InputGroup
             pOState = {oStates}
             pOSetState = {setOstates}
             pType="text"
-            pLabel= "Name"
+            pLabel= "Name (*)"
             pPlaceholder = "Enter the name of the game"
             pName="n_name"
             pErrorLegend="Only letters (aA-zZ) and numbers (0-9) are accepted"
@@ -63,7 +74,7 @@ const CreateVideoGame = () => {
         />
 
         <DetailGroup
-          pLabel= "Other" 
+          pLabel= "Other (*)" 
           pPlaceHolder= "Enter other details"
           pName= 'n_desc'
           pState= {oStates}
@@ -77,9 +88,10 @@ const CreateVideoGame = () => {
             pLabel= "Date"
             pPlaceholder = "Enter the name of the game"
             pName="n_date"
-            pErrorLegend="Only letters (aA-zZ) and numbers (0-9) are accepted"
+            pErrorLegend="Only acepte this format DD/MM/YYYY"
             pRegexp={regular_expretion.date}
         />
+        
         <InputGroup
             pOState = {oStates}
             pOSetState = {setOstates}
@@ -90,6 +102,7 @@ const CreateVideoGame = () => {
             pErrorLegend="Only letters (aA-zZ) and numbers (0-9) are accepted"
             pRegexp={regular_expretion.rating}
         />
+
         <InnSearch
             pPlaceHolder = "Search Genre of the game"
             pLabel = "Genres"
@@ -99,22 +112,34 @@ const CreateVideoGame = () => {
         
         <AddSelect
             pName = {'n_platforms'}
-            pLabel = "Platform"
+            pLabel = "Platform (*)"
             pAPlatforms = {PLATFORMS}
             pAState = {crntPlatforms}
             pASetState = {setPlatforms}
         />
 
         <ContainerSubmit>
-              <MyButton 
-                  type="submit"
-              >Enviar</MyButton>
-              {
-              /* formState && <MensajeExito>
-                              Formulario Enviado Exitosamente!
-                          </MensajeExito> */
-              }
-          </ContainerSubmit>
+            {
+              crntFormValidation === false && 
+              <ErrorMessage>
+                <span>⚠️</span>´
+                <p>
+                  <b>Error: </b>Por favor rellena el formulario correctamente.
+                </p>
+              </ErrorMessage>
+            }
+
+            <MyButton 
+              type="submit"
+              // disabled={true}
+            >SEND ►►►</MyButton>
+            {
+              crntFormValidation && 
+              <SuccessfullyMessage>
+                Formulario Enviado Exitosamente!
+              </SuccessfullyMessage>
+            }
+        </ContainerSubmit>
 
       </MyForm>
     </div>
