@@ -54,7 +54,7 @@ exports.getVideoGameById = async(req, res) => {
                 image: oVideoGameDB.image,
                 description: oVideoGameDB.description,
                 rating: oVideoGameDB.rating,
-                releaseDate: oVideoGameDB.released_date,
+                releaseDate: oVideoGameDB.release_date,
                 plataform: oVideoGameDB.platforms,
                 genres: oVideoGameDB.Genres.map(pIV => {
                     return {
@@ -98,9 +98,105 @@ exports.getVideoGameById = async(req, res) => {
         }
 }
 
+exports.deleteVideoGameById = async(req, res) => {
+    try {
+        let {idVG} = req.params;
+        let oVideoGameDB = await VideoGames.findByPk(idVG);
+        if (!!oVideoGameDB) {
+            await oVideoGameDB.destroy();
+            res.json({"Video Game deleted": oVideoGameDB});
+        }
+        else {
+            res.status(404).json({
+                Message: "VideoGame not found",
+                Details: "VideoGame not found"
+            });
+        }
+    } catch (e) {
+        res.status(404)
+            .json({
+                Message: "VideoGame not found",
+                Details: e.message
+            });
+    }
+}
 
+exports.updateVideoGameByIdentity= async(req, res) => {
+    try {
+        let {identityVG} = req.params;
+        const {name, description, release_date, rating, aPlatform, aGenres} = req.body;
 
+        let oVideoGameDB = await VideoGames.findByPk(identityVG);
 
+        if (!!oVideoGameDB) {
+
+            if(!name|| !description || !aPlatform.length>0) return res.status(404).send("Fill in all the fields");
+            console.log("=>>>>>>>>",name)
+            await oVideoGameDB.update({
+                name: name,
+                description : description,
+                release_date : release_date,
+                rating : rating,
+                platforms: aPlatform.map(pI => {
+                    return pI;
+                }),
+            });
+            const oMiddle = await oVideoGameDB.setGenres(aGenres)
+            res.json({"Video Game updated": oMiddle});
+            // return res.json({"Video Game updated": oVideoGameDB});
+        }
+        else {
+            res.status(404).json({
+                Message: "VideoGame not found",
+                Details: "VideoGame not found"
+            });
+        }
+        res.send(oVideoGameDB);
+    }
+    catch (e) {
+        res.status(404)
+            .json({
+                Message: "VideoGame not found",
+                Details: e.message
+            });
+    }
+}
+
+// exports.updateVideoGameByIf = async(req, res) => {
+//     try {
+//         let {idVG} = req.params;
+//         let oVideoGameDB = await VideoGames.findByPk(idVG);
+//         if (!!oVideoGameDB) {
+//             const { name, image, description, release_date, rating, aPlatform, aGenres} = req.body;
+//             if(!name|| !description || !aPlatform.length>0) return res.status(404).send("Fill in all the fields");
+//             await oVideoGameDB.update({
+//                 name: name,
+//                 image: image,
+//                 description: description,
+//                 release_date: release_date,
+//                 rating: rating,
+//                 platforms: aPlatform.map(pI => {
+//                             return pI;
+//                         }),
+//             });
+//             const oVideoGame = await VideoGames.findOne({where : {name : name}})
+//             const oMiddle = await oVideoGame.addGenres(aGenres)
+//             res.json({"Video Game updated": oMiddle});
+//         }
+//         else {
+//             res.status(404).json({
+//                 Message: "VideoGame not found",
+//                 Details: "VideoGame not found"
+//             });
+//         }
+//     } catch (e) {
+//         res.status(404)
+//             .json({
+//                 Message: "VideoGame not found",
+//                 Details: e.message
+//             });
+//     }
+// }
 
 
 

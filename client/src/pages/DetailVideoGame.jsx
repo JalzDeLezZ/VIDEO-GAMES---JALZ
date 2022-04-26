@@ -41,7 +41,7 @@ const DetailVideoGame = () => {
       </section>
       <Link to= "/home">
         <div className='container-button'>
-        <span className='back'>←</span>
+          <span className='back'>←</span>
         </div>
       </Link>
     </MyDiv>

@@ -65,6 +65,7 @@ const DivButons = styled.div`
     outline: none;
     border: none;
     border-bottom: 2px solid white;
+    cursor: pointer;
   }
 `
 

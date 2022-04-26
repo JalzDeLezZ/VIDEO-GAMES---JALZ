@@ -72,7 +72,7 @@ const CreateVideoGame = () => {
             pErrorLegend="Only letters (aA-zZ) and numbers (0-9) are accepted"
             pRegexp={regular_expretion.name}
         />
-
+        
         <DetailGroup
           pLabel= "Other (*)" 
           pPlaceHolder= "Enter other details"

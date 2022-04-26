@@ -25,6 +25,7 @@ const SearchGroup = () => {
           value={crntSearch}
         />
         <button 
+          type='button'
           onClick={mOnClickButton} 
           className="second-icon"/>
     </MyForm>

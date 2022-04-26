@@ -2,7 +2,8 @@ const {VideoGames, Genres, Op , fn, where, col} = require('../../db')
 const axios = require('axios'); //npm i axios
 const {KEY_API} = process.env;
 exports.listAllVideoGames = async (req, res) => {
-    const {name, qry} = req.query;
+    // const {name, qry} = req.query;
+    const {name} = req.query;
 
     if (name) {
         try {
@@ -83,10 +84,10 @@ exports.listAllVideoGames = async (req, res) => {
                     })
                 }
             });
-            if (qry === "DATA BASE") {
-                console.log("=>>>>>>>>>>>>>>","DATA BASE");
-                return res.json(dataFormatOfDB);
-            }
+            // if (qry === "DATA BASE") {
+            //     console.log("=>>>>>>>>>>>>>>","DATA BASE");
+            //     return res.json(dataFormatOfDB);
+            // }
             let aContainer = []
             for (let vPage = 1; vPage < 6; vPage++) {
                 const {data} = await axios.get(`https://api.rawg.io/api/games?key=${KEY_API}&page=${vPage}`);
@@ -113,14 +114,16 @@ exports.listAllVideoGames = async (req, res) => {
                     }),
                 }
             });
-            if (qry === "API") {
-                console.log("=>>>>>>>>>>>>>>","API");                
-                return res.status(200).json(formatApi);
-            }
+            return res.status(200).json([...dataFormatOfDB, ...formatApi]);
             
-            if (qry === "ALL" || !qry === false  || qry === "undefined") {
-                return res.status(200).json([...dataFormatOfDB, ...formatApi]);
-            }
+            // if (qry === "API") {
+            //     console.log("=>>>>>>>>>>>>>>","API");                
+            //     return res.status(200).json(formatApi);
+            // }
+            
+            // if (qry === "ALL" || !qry === false  || qry === "undefined") {
+            //     return res.status(200).json([...dataFormatOfDB, ...formatApi]);
+            // }
 
         }catch (error) {
             console.log(error);

@@ -6,21 +6,25 @@ import {
 
     ORDER_FILTER_ASC_DSC,
     FILTER_BY_DATA_AND_GENRE,
- 
+
+    DELETE_VG_BY_ID,
+    GET_PLATFORMS,
+    UPDATE_VIDEO_GAME
 } from "./action";
 
 const initialState = {
     allVideoGames: [],
     customVideoGames: [],
     aListGenres: [],
-    oVideoGame: {}
+    oVideoGame: {},
+    aPlatforms: []
 };
 
 let aTemp = [];
 
 const rootReducer = (state = initialState, action) => {
     const {allVideoGames, customVideoGames} = state;
-    const {type, payload, filter_genre, value_order, pDad, pSoon, p1dataType, p2Genre} = action;
+    const {type, payload, pDad, pSoon, p1dataType, p2Genre} = action;
 
     switch(type) {
         case GET_ALL_VIDEOGAMES:
@@ -130,7 +134,27 @@ const rootReducer = (state = initialState, action) => {
                     ...state,
                     customVideoGames: [...aFilterByGenre]
                 }
-            } 
+            }
+        case DELETE_VG_BY_ID:
+            const aVideoGameByID = allVideoGames.filter(pI => {
+                return pI.id !== payload;
+            });
+            console.log("<>><>>><",aVideoGameByID);
+            return {
+                ...state,
+                allVideoGames: [...aVideoGameByID],
+                customVideoGames: [...aVideoGameByID]
+            }
+        case GET_PLATFORMS:
+            return {
+                ...state,
+                aPlatforms: payload
+            }
+        case UPDATE_VIDEO_GAME:
+            return {
+                ...state,
+                oVideoGame: payload
+            }
         default: return {...state}
     };
 };

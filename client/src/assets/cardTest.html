@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body{
+        display: flex;
+        width: 100%;
+        min-height: 100vh;
+        align-items: center;
+        justify-content: center;
+        /* flex-flow: column nowrap; */
+    }
+    main{
+        width: 45vw;
+        min-height: 80vh;
+        padding: 14px;/* su contenedor tiene que tener la propiedad BOX-SIZING: b-b */
+        display: flex;
+        grid-gap: 10px;/* margenes entre tarjetas */
+        flex-flow: row wrap;
+        align-content: space-evenly;
+        justify-content: space-evenly;
+        /*flex-flow: column wrap;*/
+        
+        /* GRID METHOD --> need to investigate
+            display: grid;
+            place-items: center;
+            grid-gap: 10px;
+            grid-auto-flow: row;
+            grid-template-columns: repeat(3, 1fr);
+        */
+    }
+    .mOne{
+        background-color: aqua;
+    }
+    .mTwo{
+        background-color: blueviolet;
+    }
+    main div{
+        width: calc((100% / 4) - 24px); /*Se le quita el padding & el grid-gap*/
+    }
+    div{
+        background-color: rgba(0, 0, 0, 0.5);
+        outline: 1px solid red;
+        height: 120px;
+        display: grid;
+        place-items: center;
+    }
+    span{
+        color: white;
+        font-size: 1.5em;
+        outline: 1px solid fuchsia;
+    }
+</style>
+
+<body>
+    <main class="mOne">
+        <div>a</div>
+        <div>b</div>
+        <div>c</div>
+        <div>d</div>
+        <div>e</div>
+        <div>f</div>
+        <div>g</div>
+        <div>g</div>
+        <div>g</div>
+    </main>
+    <main class="mTwo">
+        <div><span>X</span></div>
+    </main>
+</body>
+</html>
