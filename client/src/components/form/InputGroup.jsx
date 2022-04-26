@@ -101,7 +101,7 @@ const DetailGroup = (props) => {
 /* ****************************************************************** */
 /* **************************INPUT SEARCH*********************** */
 /* ****************************************************************** */
-const InnSearch = ({pPlaceHolder, pLabel, pAState, pASetState}) => {
+const InnSearch = ({pPlaceHolder, pLabel, pAState, pASetState, pCrntShowGenres, pSetShowGenres}) => {
 
     //*******************************RENDER***************************/
     const xDispatch = useDispatch();
@@ -113,12 +113,11 @@ const InnSearch = ({pPlaceHolder, pLabel, pAState, pASetState}) => {
       
     //**********************SEARCH INPUT***************************/
     const [sInn, setSInn] = useState('');
-    const [crntAGenres, setAGenres] = useState([]);
     const mAddVideoGame = () => {
-        let vMatch = crntAGenres.find(e => e === sInn );
+        let vMatch = pCrntShowGenres.find(e => e === sInn );
         if (!vMatch) {
             let oInn = reducer_aListGenres.filter(e => e.name === sInn)
-            setAGenres([...crntAGenres, sInn]);
+            pSetShowGenres([...pCrntShowGenres, sInn]);
             pASetState([...pAState, oInn[0].id]);
         }
         else{
@@ -127,8 +126,8 @@ const InnSearch = ({pPlaceHolder, pLabel, pAState, pASetState}) => {
     }
     
     const mDeleteOne = (p) => { 
-        let oMatch = crntAGenres.filter(e => e !== p);
-        setAGenres(oMatch);
+        let oMatch = pCrntShowGenres.filter(e => e !== p);
+        pSetShowGenres(oMatch);
     }
   return (
       <ContainerDetail>
@@ -141,7 +140,7 @@ const InnSearch = ({pPlaceHolder, pLabel, pAState, pASetState}) => {
                     type="search" 
                     value={sInn} 
                     onChange={(e) => setSInn(e.target.value)}
-                    onBlur={() => {console.log(crntAGenres, "POST: ", pAState)}}
+                    onBlur={() => {console.log(pCrntShowGenres, "POST: ", pAState)}}
                     placeholder={pPlaceHolder}
                 />
                 <datalist id="iDataList">
@@ -155,7 +154,7 @@ const InnSearch = ({pPlaceHolder, pLabel, pAState, pASetState}) => {
             </div>
             <ReturnedContainer>
                 {
-                    crntAGenres?.map((pI, i) => {
+                    pCrntShowGenres?.map((pI, i) => {
                         return ( 
                         <article key={i}> 
                             {pI}

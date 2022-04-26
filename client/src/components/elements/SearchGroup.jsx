@@ -10,23 +10,27 @@ const SearchGroup = () => {
   const [crntSearch, setSearch] = useState('');
   
   const mOnClickButton = async (e) => {
-    xDispatch(getVideoGameByName(crntSearch));
-    console.log(crntSearch);
+    e.preventDefault();
+    await xDispatch(getVideoGameByName(crntSearch))
+    setSearch('');
+    // .then(() => { setSearch(''); });
   }
 
   return (
-    <MyForm className= "header-input-container">
+    <MyForm
+      onSubmit={mOnClickButton}
+      className= "header-input-container">
         <span className="search-icon"/>
         <input 
           type="search" 
           placeholder="Search Video Game By Name" 
           onChange={(e) => {setSearch(e.target.value)}}
           className="header-input"
-          value={crntSearch}
+          value={crntSearch}          
+          onKeyUp = {(e) => {e.key === 'Enter' && mOnClickButton(e)}}
         />
         <button 
-          type='button'
-          onClick={mOnClickButton} 
+          type='submit'
           className="second-icon"/>
     </MyForm>
   )

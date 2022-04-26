@@ -6,26 +6,31 @@ import PLATFORMS from '../assets/helpers/Platforms.json'
 import { regular_expretion } from '../assets/helpers/validation'
 import { useDispatch } from 'react-redux'
 import { postVideoGamesXGenres } from '../redux/action'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const CreateVideoGame = () => {
   const xDispatch = useDispatch();
+  const xNavigate = useNavigate();
   let tForm = useRef(null);
+  const oInitialState = {
+    n_name : { current_data: '', is_valid: null },
+    n_desc : "",
+    n_date : { current_data: '', is_valid: null },
+    n_rating : { current_data: '', is_valid: null }
+  }
+
   const [oStates, setOstates] = useState(
-    {
-      n_name : { current_data: '', is_valid: null },
-      n_desc : "",
-      n_date : { current_data: '', is_valid: null },
-      n_rating : { current_data: '', is_valid: null }
-    }
+    oInitialState
   )
+
   const [crntPlatforms, setPlatforms] = useState([]);
   const [crntGenres, setGenres] = useState([]);
-  
+  const [crntShowGenres, setShowGenres] = useState([]);
   const [crntFormValidation , setFormValidation] = useState(null);
 
-  const mOnSubmit = (event) => {
+  const mOnSubmit = async (event) => {
     event.preventDefault();
+    console.log('Submit', oStates);
       if (oStates.n_name.is_valid   === "false" ||
           oStates.n_date.is_valid   === "false" ||
           oStates.n_rating.is_valid === "false" ||
@@ -45,11 +50,15 @@ const CreateVideoGame = () => {
           "aGenres": crntGenres
         }
         console.log(oPost);
-        xDispatch(postVideoGamesXGenres(oPost));
+        await xDispatch(postVideoGamesXGenres(oPost));
         
-        // event.target.reset();
-        // tForm.current.reset();
-        setFormValidation(null);
+        setOstates(oInitialState);
+        setPlatforms([]);
+        setGenres([]);
+        setShowGenres([]);
+        setFormValidation(true);
+        alert('Successfully');
+        xNavigate('/home');
       }
   }
 
@@ -108,6 +117,8 @@ const CreateVideoGame = () => {
             pLabel = "Genres"
             pAState={crntGenres}
             pASetState={setGenres}
+            pCrntShowGenres= {crntShowGenres}
+            pSetShowGenres= {setShowGenres}
         />
         
         <AddSelect
@@ -128,17 +139,16 @@ const CreateVideoGame = () => {
                 </p>
               </ErrorMessage>
             }
-
-            <MyButton 
-              type="submit"
-              // disabled={true}
-            >SEND ►►►</MyButton>
             {
               crntFormValidation && 
               <SuccessfullyMessage>
                 Formulario Enviado Exitosamente!
               </SuccessfullyMessage>
             }
+            <MyButton 
+              type="submit"
+              // disabled={true}
+            >SEND ►►►</MyButton>
         </ContainerSubmit>
 
       </MyForm>

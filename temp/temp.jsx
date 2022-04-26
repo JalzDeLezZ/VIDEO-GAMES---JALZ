@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
@@ -11,16 +11,16 @@ const BurgerButton = () => {
 
   return (
     <MyHeader pOpen={open}>
-        <StyledBurger pOpen={open} onClick={mReloadOpen} className='burgerFigure'>
+        <StyledBurger pOpen={open} onClick={mReloadOpen}>
             <span></span>
             <span></span>
             <span></span>
         </StyledBurger>
-        <ListNav pOpen={open}>
+        <RightNav pOpen={open}>
             <li><Link to='/' onClick={mReloadOpen}>Landing Page</Link></li>
             <li><Link to='/home' onClick={mReloadOpen}>Home</Link></li>
             <li><Link to='/createvg' onClick={mReloadOpen}>Create Video Game</Link></li>
-        </ListNav>
+        </RightNav>
     </MyHeader>
   )
 }
@@ -32,38 +32,21 @@ export default BurgerButton
 //---------------------------------------------------------------------------
 
 const MyHeader = styled.header`
-    .burgerFigure{
-        display: none;
-    }
-    background-color: #000000;
-    width: 100%;
-    height: 7vh;
-    display: flex;
-    align-items: center;
-    justify-content: end;
-    border-bottom: 3px solid #ffffff;
-    @media (max-width:500px) {
-        .burgerFigure{
-            display: flex;
-        }
-        position: fixed;
-        left: 0px;
-        z-index: 3;
-        width: ${({pOpen}) => (!pOpen) ? '79px' : '100%'};
-        height: ${({pOpen}) => (!pOpen) ? '79px' : '100%'};
-        
-        clip-path: polygon(0 0, 0 100%, 100% 0);
-        /* clip-path: ${({pOpen}) => (!pOpen) ? 'polygon(0 0, 0 100%, 100% 0);' : 'polygon(0 0, 100% 0, 100% 100%, 30% 100%);'}; */
-    }
+    position: fixed;
+    z-index: 3;
+    width: ${({pOpen}) => (!pOpen) ? '93px' : '100%'};
+    height: ${({pOpen}) => (!pOpen) ? '93px' : '100%'};
+    background-color: black;
+    clip-path: polygon(0 0, 0 100%, 100% 0);
+    /* (!pOpen) ? 'polygon(0 0, 0 100%, 100% 0);' : 'polygon(0 0, 100% 0, 100% 100%, 30% 100%);'} */
 `
 //===============================================================
 
-const ListNav = styled.ul`
+const RightNav = styled.ul`
+    /* position: block;
     display: flex; 
-    flex-flow: row wrap;
-    margin: 0;
+    flex-flow: row nowrap; */
     list-style: none;
-    text-align: left;
     li{
     text-decoration : none;
     padding: 10px 20px;
@@ -78,12 +61,12 @@ const ListNav = styled.ul`
     };
      
 
-    @media (max-width: 500px){
+    @media (max-width: 400px){
         transform: ${({ pOpen }) => pOpen ? 'translateX(0)' : 'translateX(100%)'};
         flex-flow: column nowrap; 
         position: fixed;
         top: 0;
-        left: 0;
+        right: 0;
         height: 100vh;
         width: 100%;
         padding-top: 3.5rem;
@@ -95,19 +78,19 @@ const ListNav = styled.ul`
     }
 `
 //===============================================================
-const StyledBurger = styled.figure` 
-    margin: 10px;
+const StyledBurger = styled.section`
+    
     width: 2rem;
     height: 2rem;
+    margin: 10px;
     position: absolute;
-    top: 0px;
-    left: 0px;
-
-    z-index: 2; 
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-around;        
-
+    z-index: 2;
+    background-color: black;
+    @media (max-width:768px) {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-around;    
+    }
     span{
         width: 2rem;
         height: 0.25rem;
@@ -115,6 +98,7 @@ const StyledBurger = styled.figure`
         border-radius: 10px;
         transform-origin: 1px;
         transition: all 0.3s linear;
+
         &:nth-child(1){
             transform: ${({pOpen}) => pOpen ? 'rotate(45deg)' : 'rotate(0)'};
         }
@@ -126,8 +110,4 @@ const StyledBurger = styled.figure`
             transform: ${({pOpen}) => pOpen ? 'rotate(-45deg)' : 'rotate(0)'};
         }
     }
-` 
-/* 
-PASSPORT
-OUTZERO
-*/
+`
